@@ -1,4 +1,4 @@
-// FCAI – OOP Programming – 2023 - Assignment 1 
+// FCAI – OOP Programming – 2023 - Assignment 1
 // Program Name: imgprocessor.cpp
 // Last Modification Date:	5/10/2023
 // Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313
@@ -15,7 +15,7 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE];
-unsigned char Merg_Image[SIZE][SIZE];
+unsigned char MergImage[SIZE][SIZE];
 unsigned char image3[SIZE][SIZE];
 bool ex = false;
 void loadImage();
@@ -47,7 +47,7 @@ void filter_brighten_darken(){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 image[i][j] = (image[i][j])/2;
-                \\divide the pixel by 2 to become darker by 50%.
+                //divide the pixel by 2 to become darker by 50%.
             }
         }
     }
@@ -55,25 +55,25 @@ void filter_brighten_darken(){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 image[i][j] = image[i][j]+(255-image[i][j])/2 ;
-                \\calculate how much should we add to pixel to become white one.
-                \\then divide it by 2 to apply brighten filter. 
+                //calculate how much should we add to pixel to become white one.
+                //then divide it by 2 to apply brighten filter.
             }
         }
     }
     else{
-        \\if user enter unvalid char apply recuersion by using filter_brighten_darken() again.
+        //if user enter unvalid char apply recuersion by using filter_brighten_darken() again.
         cout<<"Please enter a valid character: ";
         filter_brighten_darken();
     }
 }
 void filter_rotate(){
     int Rotation_Degree;
-    \\ask user about rotation degree he want.
+    //ask user about rotation degree he want.
     cout << "Enter 90 if you want to rotate image by 90°: \n";
     cout << "Enter 180 if you want to rotate image by 180°: \n";
     cout << "Enter 270 if you want to rotate image by 270°: \n";
     cin >> Rotation_Degree;
-    \\check rotation degree.
+    //check rotation degree.
     if (Rotation_Degree == 90) {
         int l = SIZE - 1, k = 0;
         for (int i = 0; i < SIZE; ++i) {
@@ -110,13 +110,13 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
-    \\ask user where to flip he want.
+    //ask user where to flip he want.
     char flip;
     cout << "Enter v if you want it to flip vertically : \n";
     cout << "Enter h if you want it to flip horizontally : \n";
     cin >> flip;
     flip = tolower(flip);
-    \\check flip.
+    //check flip.
     if (flip == 'v') {
         int k = SIZE - 1, l = 0;
         for (int i = 0; i < SIZE; ++i) {
@@ -139,7 +139,7 @@ void filter_flip(){
         }
     }
     else{
-        \\if user enter unvalid char apply recuersion 
+        //if user enter unvalid char apply recuersion
         cout<<"Please choose a valid character: \n";
         filter_flip();
     }
