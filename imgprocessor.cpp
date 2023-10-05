@@ -17,7 +17,7 @@ using namespace std;
 unsigned char image[SIZE][SIZE];
 unsigned char MergImage[SIZE][SIZE];
 unsigned char image3[SIZE][SIZE];
-bool ex = false;
+bool Exit = false;
 void loadImage();
 void Image_for_Merging ();
 void saveImage ();
@@ -29,7 +29,7 @@ int main()
 {
     cout<<"Ahlan ya user ya habibi \uF04A\n";
     loadImage();
-    while (!ex){ filters(); }
+    while (!Exit){ filters(); }
     return 0;
 }
 void saveImage () {
@@ -56,7 +56,7 @@ void filter_brighten_darken(){
             for (int j = 0; j < SIZE; ++j) {
                 image[i][j] = image[i][j]+(255-image[i][j])/2 ;
                 //calculate how much should we add to pixel to become white one.
-                //then divide it by 2 to apply brighten filter.
+                //then divide it by 2 to apply a brightened filter.
             }
         }
     }
@@ -68,7 +68,7 @@ void filter_brighten_darken(){
 }
 void filter_rotate(){
     int Rotation_Degree;
-    //ask user about rotation degree he want.
+    //ask user about rotation degree he wants.
     cout << "Enter 90 if you want to rotate image by 90°: \n";
     cout << "Enter 180 if you want to rotate image by 180°: \n";
     cout << "Enter 270 if you want to rotate image by 270°: \n";
@@ -110,7 +110,7 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
-    //ask user where to flip he want.
+    //ask user where to flip he wants.
     char flip;
     cout << "Enter v if you want it to flip vertically : \n";
     cout << "Enter h if you want it to flip horizontally : \n";
@@ -147,8 +147,7 @@ void filter_flip(){
 void filters() {
     char filter_Applied;
     cout << "Please select a filter to apply or 0 to exit:\n";
-    cout << "\n"
-            "1-Black & White Filter\n"
+    cout << "1-Black & White Filter\n"
             "2-Invert Filter\n"
             "3-Merge Filter \n"
             "4-Flip Image\n"
@@ -206,7 +205,7 @@ void filters() {
             saveImage();
             break;
         case '0':
-            ex = true;
+            Exit= true;
             break;
         default:
             cout << "Please try a vaild filter:";
