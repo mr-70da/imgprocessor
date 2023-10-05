@@ -1,13 +1,10 @@
-//OOP-first assignment:Image processor
-//authers:Mahmoud Ayman Ramadan ID:20220313,
-//// FCAI – OOP Programming – 2023 - Assignment 1 
+// FCAI – OOP Programming – 2023 - Assignment 1 
 // Program Name: imgprocessor.cpp
 // Last Modification Date:	5/10/2023
-// Author1 and ID and Group:	xxxxx xxxxx
+// Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313
 // Author2 and ID and Group:	xxxxx xxxxx
-// Author3 and ID and Group:	xxxxx xxxxx
 // Teaching Assistant:		xxxxx xxxxx
-// Purpose:..........
+// Purpose:for acdemic learning
 
 #include <iostream>
 #include <fstream>
@@ -18,20 +15,13 @@
 
 using namespace std;
 unsigned char image[SIZE][SIZE];
-unsigned char image2[SIZE][SIZE];
+unsigned char Merg_Image[SIZE][SIZE];
 unsigned char image3[SIZE][SIZE];
 bool ex = false;
 void loadImage();
-
-void loadImage2();
-void saveImage () {
-    char imageFileName[100];
-    cout << "Enter the target image file name: ";
-    cin >> imageFileName;
-    strcat (imageFileName, ".bmp");
-    writeGSBMP(imageFileName, image);
-}
-void filter_bri_dark();
+void Image_for_Merging ();
+void saveImage ();
+void filter_brighten_darken();
 void filter_flip();
 void filters();
 void filter_rotate();
@@ -40,10 +30,16 @@ int main()
     cout<<"Ahlan ya user ya habibi \uF04A\n";
     loadImage();
     while (!ex){ filters(); }
-    saveImage();
     return 0;
 }
-void filter_bri_dark(){
+void saveImage () {
+    char imageFileName[100];
+    cout << "Enter the target image file name: ";
+    cin >> imageFileName;
+    strcat (imageFileName, ".bmp");
+    writeGSBMP(imageFileName, image);
+}
+void filter_brighten_darken(){
     char ch;
     cout<<"Do you want to (d)arken or (l)ighten? \n";
     cin>>ch;
@@ -51,6 +47,7 @@ void filter_bri_dark(){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 image[i][j] = (image[i][j])/2;
+                \\divide the pixel by 2 to become darker by 50%.
             }
         }
     }
@@ -58,21 +55,26 @@ void filter_bri_dark(){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 image[i][j] = image[i][j]+(255-image[i][j])/2 ;
+                \\calculate how much should we add to pixel to become white one.
+                \\then divide it by 2 to apply brighten filter. 
             }
         }
     }
     else{
+        \\if user enter unvalid char apply recuersion by using filter_brighten_darken() again.
         cout<<"Please enter a valid character: ";
-        filter_bri_dark();
+        filter_brighten_darken();
     }
 }
 void filter_rotate(){
-    int rot;
-    cout << "Enter 90 if you want to rotate image by 90 degree: \n";
-    cout << "Enter 180 if you want to rotate image by 180 degree: \n";
-    cout << "Enter 270 if you want to rotate image by 270 degree: \n";
-    cin >> rot;
-    if (rot == 90) {
+    int Rotation_Degree;
+    \\ask user about rotation degree he want.
+    cout << "Enter 90 if you want to rotate image by 90°: \n";
+    cout << "Enter 180 if you want to rotate image by 180°: \n";
+    cout << "Enter 270 if you want to rotate image by 270°: \n";
+    cin >> Rotation_Degree;
+    \\check rotation degree.
+    if (Rotation_Degree == 90) {
         int l = SIZE - 1, k = 0;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -82,7 +84,7 @@ void filter_rotate(){
             l--;
             k = 0;
         }
-    } else if (rot == 180) {
+    } else if (Rotation_Degree == 180) {
         int l = SIZE - 1, k = SIZE - 1;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -92,7 +94,7 @@ void filter_rotate(){
             k--;
             l = SIZE - 1;
         }
-    } else if (rot == 270) {
+    } else if (Rotation_Degree == 270) {
         int l = 0, k = SIZE - 1;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -108,12 +110,14 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
-    char ch;
+    \\ask user where to flip he want.
+    char flip;
     cout << "Enter v if you want it to flip vertically : \n";
     cout << "Enter h if you want it to flip horizontally : \n";
-    cin >> ch;
-    ch = tolower(ch);
-    if (ch == 'v') {
+    cin >> flip;
+    flip = tolower(flip);
+    \\check flip.
+    if (flip == 'v') {
         int k = SIZE - 1, l = 0;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -123,7 +127,7 @@ void filter_flip(){
             k--;
             l = 0;
         }
-    } else if (ch == 'h') {
+    } else if (flip == 'h') {
         int k = 0, l = SIZE - 1;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
@@ -135,6 +139,7 @@ void filter_flip(){
         }
     }
     else{
+        \\if user enter unvalid char apply recuersion 
         cout<<"Please choose a valid character: \n";
         filter_flip();
     }
@@ -171,10 +176,10 @@ void filters() {
             }
             break;
         case '3':
-            loadImage2();
+            Image_for_Merging ();
             for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    image[i][j] = (image[i][j] + image2[i][j]) / 2;
+                    image[i][j] = (image[i][j] + MergImage[i][j]) / 2;
                 }
             }
             break;
@@ -186,6 +191,9 @@ void filters() {
             }
             filter_flip();
             break;
+        case '5':
+            filter_brighten_darken();
+            break;
         case '6':
             for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
@@ -194,11 +202,9 @@ void filters() {
             }
             filter_rotate();
             break;
-        case '5':
-            filter_bri_dark();
-            break;
         case 's':
-
+            saveImage();
+            break;
         case '0':
             ex = true;
             break;
@@ -215,10 +221,10 @@ void loadImage () {
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
-void loadImage2 () {
+void Image_for_Merging () {
     char imageFileName[100];
     cout << "Enter the source image file name for the second image: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
-    readGSBMP(imageFileName, image2);
+    readGSBMP(imageFileName,MergImage);
 }
