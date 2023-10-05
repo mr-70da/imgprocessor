@@ -1,6 +1,14 @@
 //OOP-first assignment:Image processor
 //authers:Mahmoud Ayman Ramadan ID:20220313,
-//
+//// FCAI – OOP Programming – 2023 - Assignment 1 
+// Program Name: imgprocessor.cpp
+// Last Modification Date:	5/10/2023
+// Author1 and ID and Group:	xxxxx xxxxx
+// Author2 and ID and Group:	xxxxx xxxxx
+// Author3 and ID and Group:	xxxxx xxxxx
+// Teaching Assistant:		xxxxx xxxxx
+// Purpose:..........
+
 #include <iostream>
 #include <fstream>
 #include <cstring>
