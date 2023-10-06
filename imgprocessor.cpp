@@ -69,9 +69,7 @@ void filter_brighten_darken(){
 void filter_rotate(){
     int Rotation_Degree;
     //ask user about rotation degree he wants.
-    cout << "Enter 90 if you want to rotate image by 90°: \n";
-    cout << "Enter 180 if you want to rotate image by 180°: \n";
-    cout << "Enter 270 if you want to rotate image by 270°: \n";
+    cout << "Rotate (90), (180) or (360) degrees? \n";
     cin >> Rotation_Degree;
     //check rotation degree.
     if (Rotation_Degree == 90) {
@@ -112,8 +110,7 @@ void filter_rotate(){
 void filter_flip(){
     //ask user where to flip he wants.
     char flip;
-    cout << "Enter v if you want it to flip vertically : \n";
-    cout << "Enter h if you want it to flip horizontally : \n";
+    cout << "Flip (h)orizontally or (v)ertically ? \n";
     cin >> flip;
     flip = tolower(flip);
     //check flip.
@@ -215,14 +212,14 @@ void filters() {
 
 void loadImage () {
     char imageFileName[100];
-    cout << "Enter the source image file name: ";
+    cout << "Please enter file name of the image to process: ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName, image);
 }
 void Image_for_Merging () {
     char imageFileName[100];
-    cout << "Enter the source image file name for the second image: ";
+    cout << "Please enter name of image file to merge with:  ";
     cin >> imageFileName;
     strcat (imageFileName, ".bmp");
     readGSBMP(imageFileName,MergImage);
