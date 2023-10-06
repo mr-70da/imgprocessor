@@ -44,17 +44,17 @@ void filter_brighten_darken(){
     cout<<"Do you want to (d)arken or (l)ighten? \n";
     cin>>ch;
     if(ch =='d') {
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[i][j] = (image[i][j])/2;
+        for (auto & i : image) {
+            for (unsigned char & j : i) {
+                j = j/2;
                 //divide the pixel by 2 to become darker by 50%.
             }
         }
     }
     else if(ch=='l'){
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[i][j] = image[i][j]+(255-image[i][j])/2 ;
+        for (auto & i : image) {
+            for (unsigned char & j : i) {
+                j = j+(255-j)/2 ;
                 //calculate how much should we add to pixel to become white one.
                 //then divide it by 2 to apply a brightened filter.
             }
@@ -74,9 +74,9 @@ void filter_rotate(){
     //check rotation degree.
     if (Rotation_Degree == 90) {
         int l = SIZE - 1, k = 0;
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[k][l] = image3[i][j];
+        for (auto & i : image3) {
+            for (unsigned char j : i) {
+                image[k][l] = j;
                 k++;
             }
             l--;
@@ -84,9 +84,9 @@ void filter_rotate(){
         }
     } else if (Rotation_Degree == 180) {
         int l = SIZE - 1, k = SIZE - 1;
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[k][l] = image3[i][j];
+        for (auto & i : image3) {
+            for (unsigned char j : i) {
+                image[k][l] = j;
                 l--;
             }
             k--;
@@ -94,9 +94,9 @@ void filter_rotate(){
         }
     } else if (Rotation_Degree == 270) {
         int l = 0, k = SIZE - 1;
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[k][l] = image3[i][j];
+        for (auto & i : image3) {
+            for (unsigned char j : i) {
+                image[k][l] = j;
                 k--;
             }
             l++;
@@ -108,17 +108,17 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
-    //ask user where to flip he wants.
+    //ask user how to flip he wants.
     char flip;
     cout << "Flip (h)orizontally or (v)ertically ? \n";
     cin >> flip;
     flip = tolower(flip);
-    //check flip.
+    //check how to flip
     if (flip == 'v') {
         int k = SIZE - 1, l = 0;
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[k][l] = image3[i][j];
+        for (auto & i : image3) {
+            for (unsigned char j : i) {
+                image[k][l] = j;
                 ++l;
             }
             k--;
@@ -126,9 +126,9 @@ void filter_flip(){
         }
     } else if (flip == 'h') {
         int k = 0, l = SIZE - 1;
-        for (int i = 0; i < SIZE; ++i) {
-            for (int j = 0; j < SIZE; ++j) {
-                image[k][l] = image3[i][j];
+        for (auto & i : image3) {
+            for (unsigned char j : i) {
+                image[k][l] = j;
                 --l;
             }
             k++;
@@ -139,6 +139,25 @@ void filter_flip(){
         //if user enter unvalid char apply recuersion
         cout<<"Please choose a valid character: \n";
         filter_flip();
+    }
+}
+void filter_black_white(){
+    // see if each pixel is greater than or equal 128 or less
+    // if greater make it 255 else make it 0
+    for (auto &i: image) {
+        for (unsigned char &j: i) {
+            if (j >= 128)
+                j = 255;
+            else
+                j = 0;
+        }
+    }
+}
+void filter_invert(){
+    for (auto &i: image) {
+        for (unsigned char &j: i) {
+            j = 255 - j;
+        }
     }
 }
 void filters() {
@@ -155,21 +174,10 @@ void filters() {
     cin >> filter_Applied;
     switch (filter_Applied) {
         case '1':
-            for (auto &i: image) {
-                for (unsigned char &j: i) {
-                    if (j >= 128)
-                        j = 255;
-                    else
-                        j = 0;
-                }
-            }
+            filter_black_white();
             break;
         case '2':
-            for (auto &i: image) {
-                for (unsigned char &j: i) {
-                    j = 255 - j;
-                }
-            }
+            filter_invert();
             break;
         case '3':
             Image_for_Merging ();
