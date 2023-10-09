@@ -1,10 +1,5 @@
-// FCAI – OOP Programming – 2023 - Assignment 1
-// Program Name: imgprocessor.cpp
-// Last Modification Date:	6/10/2023
-// Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313
-// Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112
-// Teaching Assistant:		xxxxx xxxxx
-// Purpose:for acdemic learning
+// Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com
+// Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com
 
 #include <iostream>
 #include <fstream>
@@ -21,12 +16,21 @@ bool Exit = false;
 void loadImage();
 void Image_for_Merging ();
 void saveImage ();
-void filter_brighten_darken();
+//void filter_brighten_darken();
 void filter_flip();
 void filters();
 void filter_rotate();
-int main()
-{
+void filter_invert();
+void filter_merge();
+//void filter_detect_edges();
+//void filter_enlarge();
+//void filter_shuffle();
+//void filter_mirror();
+//void filter_crop();
+//void filter_blur();
+//void filter_shrink();
+//void filter_skew();
+int main(){
     cout<<"Ahlan ya user ya habibi \uF04A\n";
     loadImage();
     while (!Exit){ filters(); }
@@ -39,6 +43,14 @@ void saveImage () {
     strcat (imageFileName, ".bmp");
     writeGSBMP(imageFileName, image);
 }
+void filter_merge(){
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            image[i][j] = (image[i][j] + MergImage[i][j]) / 2;
+        }
+    }
+}
+
 void filter_brighten_darken(){
     char ch;
     cout<<"Do you want to (d)arken or (l)ighten? \n";
@@ -108,12 +120,12 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
-    //ask user how to flip he wants.
+    //ask user where to flip he wants.
     char flip;
     cout << "Flip (h)orizontally or (v)ertically ? \n";
     cin >> flip;
     flip = tolower(flip);
-    //check how to flip
+    //check flip.
     if (flip == 'v') {
         int k = SIZE - 1, l = 0;
         for (auto & i : image3) {
@@ -181,11 +193,7 @@ void filters() {
             break;
         case '3':
             Image_for_Merging ();
-            for (int i = 0; i < SIZE; ++i) {
-                for (int j = 0; j < SIZE; ++j) {
-                    image[i][j] = (image[i][j] + MergImage[i][j]) / 2;
-                }
-            }
+            filter_merge();
             break;
         case '4':
             for (int i = 0; i < SIZE; ++i) {
@@ -206,6 +214,30 @@ void filters() {
             }
             filter_rotate();
             break;
+//        case '7':
+//            filter_detect_edges();
+//            break;
+//        case '8':
+//            filter_enlarge();
+//            break;
+//        case '9':
+//            filter_shrink();
+//            break;
+//        case 'a':
+//            filter_mirror();
+//            break;
+//        case 'b':
+//            filter_shuffle();
+//            break;
+//        case 'd':
+//            filter_crop();
+//            break;
+//        case 'c':
+//            filter_blur();
+//            break;
+//        case'e':
+//        case'f':
+//            break;
         case 's':
             saveImage();
             break;
