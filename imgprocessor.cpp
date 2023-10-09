@@ -50,7 +50,261 @@ void filter_merge(){
         }
     }
 }
-
+//void filter_skew(){
+//
+//}
+//void filter_shrink(){
+//    string shrink_scale;
+//    unsigned char shrink_image[SIZE][SIZE];
+//    cout<<"Shrink to (1/2), (1/3) or (1/4)? \n";
+//    cin>>shrink_scale;
+//    for (auto & i : shrink_image) {
+//        for (unsigned char & j : i) {
+//            j = 255;
+//        }
+//    }
+//    if(shrink_scale=="1/2"){
+//        for (int i = 0; i < SIZE/2 - 1; i++) {
+//            for (int j = 0; j < SIZE/2 - 1; j++) {
+//                shrink_image[i][j] = (image[i*2][j*2] + image[i*2][j*2 + 1] + image[i*2 + 1][j*2] + image[i*2 + 1][j*2 + 1]) / 4;
+//            }
+//        }
+//    }
+//    else if(shrink_scale=="1/3"){
+//        for (int i = 0; i < SIZE/3 - 2; i++) {
+//            for (int j = 0; j < SIZE/3 - 2; j++) {
+//                shrink_image[i][j] = (image[i*3][j*3] + image[i*3][j*3 + 1] + image[i*3][j*3+2]+image[i*3+1][j*3]+image[i*3+1][j*3+1]+image[i*3+1][j*3+2]+image[i*3+2][j*3]+image[i*3+2][j*3+1]+image[i*3+2][j*3+2]) / 9;
+//            }
+//        }
+//    }
+//    else if(shrink_scale=="1/4"){
+//        for (int i = 0; i < SIZE/4 - 3; i++) {
+//            for (int j = 0; j < SIZE/4 - 3; j++) {
+//                shrink_image[i][j] = (image[i*4][j*4] + image[i*4][j*4 + 1] + image[i*4][j*4+2]+image[i*4][j*4+3]+image[i*4+1][j*4]+image[i*4+1][j*4+1]+image[i*4+1][j*4+2]+image[i*4+1][j*4+3]+image[i*4+2][j*4]+image[i*4+2][j*4+1]+image[i*4+2][j*4+2]+image[i*4+2][j*4+3]+image[i*4+3][j*4]+image[i*4+3][j*4+1]+image[i*4+3][j*4+2]+image[i*4+3][j*4+3]) / 16;
+//            }
+//        }
+//    }
+//    else{
+//        cout<<"Invalid input\n";
+//        filter_shrink();
+//    }
+//    for (int i = 0; i < SIZE; i++) {
+//        for (int j = 0; j < SIZE; j++) {
+//            image[i][j] = shrink_image[i][j];
+//        }
+//    }
+//}
+//void filter_blur(){
+//    for(int k =0;k<5;k++){
+//        for (int i = 1; i <= SIZE; i++) {
+//            for (int j = 1; j <= SIZE; j++) {
+//                image[i][j] = (image[i + 1][j - 1] + image[i - 1][j + 1] + image[i + 1][j] + image[i][j + 1]
+//                               + image[i + 1][j + 1] + image[i - 1][j - 1] + image[i - 1][j] + image[i][j - 1]) / 8;
+//            }
+//        }
+//    }
+//}
+//void filter_mirror(){
+//    char mirror_side;
+//    cout<<"Mirror (l)eft, (r)ight, (u)pper, (d)own side? \n";
+//    cin>>mirror_side;
+//    mirror_side = tolower(mirror_side);
+//    int row,column;
+//    switch(mirror_side){
+//        case'l':
+//            for (auto & i : image) {
+//                for (int j = 0; j < SIZE; ++j) {
+//                    i[SIZE-j] = i[j];
+//                }//choose where to start from and put it in reverse
+//            }
+//            break;
+//        case'r':
+//            for (auto & i : image) {
+//                for (int j = 0; j < SIZE; ++j) {
+//                    i[j] = i[SIZE-j];
+//                }
+//            }
+//            break;
+//        case'u':
+//            for (int i = 0; i < SIZE/2; ++i) {
+//                for (int j = 0; j < SIZE; ++j) {
+//                    image[SIZE-i][j] = image[i][j];
+//                }
+//            }
+//            break;
+//        case'd':
+//            for (int i = 128; i < SIZE; ++i) {
+//                for (int j = 0; j < SIZE; ++j) {
+//                    image[SIZE-i][j] = image[i][j];
+//                }
+//            }
+//            break;
+//        default:
+//            cout<<"Invalid option! \n";
+//            filter_mirror();
+//            break;
+//    }
+//}
+//void filter_crop(){
+//    unsigned char whiteImage[SIZE][SIZE];
+//    for(auto & i : whiteImage){
+//        for(auto & j : i){
+//            j=255;
+//        }
+//    }
+//
+//    vector<int>v(4);
+//    cout<< "Please enter x y l w: ";
+//    for(int  i = 0; i<4;i++){
+//        cin>>v[i];
+//    }if(v.size()==4){
+//        //x-axis pos=v[0],y-axis pos=v[1],length of rect=v[2],width of rect=v[3].
+//        for(int i=v[0];i<v[0]+v[2];i++){
+//            for(int j=v[1];j<v[1]+v[3];j++){
+//                whiteImage[i][j]=image[i][j];
+//            }
+//        }for(int i = 0 ;i<SIZE;i++){
+//            for(int j=0;j<SIZE;j++){
+//                image[i][j]=whiteImage[i][j];
+//            }
+//        }
+//
+//    }else{
+//        cout<<"Invalid option! \n";
+//        filter_crop();
+//    }
+//}
+//void filter_shuffle(){
+//    unsigned char shuffled_image[SIZE][SIZE];
+//    int newRow,newColoumn,row,coloumn;
+//    vector<int>order_of_shuffle(4);
+//    set<int>correctness;
+//    cout<<"New order of quarters ? ";
+//    for(int k=0;k<4;k++){
+//        cin>>order_of_shuffle[k];
+//        correctness.insert(order_of_shuffle[k]);
+//    }if(correctness.size()==4){
+//        for (int k = 0; k < 4; k++) {
+//            newRow = k < 2 ? 0 : SIZE / 2;           //for the first & the second quarters start rows from 0 else start from 128
+//            row = order_of_shuffle[k] < 3 ? 0 : SIZE / 2;            // for the first & the second quarters start rows from 0 else start from 128
+//            for (int i = row; i < row + SIZE / 2; i++,newRow++) {
+//                coloumn = order_of_shuffle[k] % 2 == 1 ? 0 : SIZE / 2;         // for the first & the second quarters start coloumn from 0 else start from 128
+//                newColoumn = k % 2 == 0 ? 0 : SIZE / 2;          //for the first & the second quarters start coloumn from 0 else start from 128
+//                for (int j = coloumn; j < coloumn + SIZE / 2; j++,newColoumn++) {
+//                    shuffled_image[newRow][newColoumn] = image[i][j];
+//                }
+//            }
+//        }//replace the original image with the shuffled one;
+//        for(int i = 0;i <SIZE;i++){
+//            for(int j = 0;j < SIZE;j++ ){
+//                image[i][j] = shuffled_image[i][j];
+//            }
+//        }
+//    }else{
+//        cout<<"Please enter a valid order\n";
+//        filter_shuffle();
+//    }
+//}
+//void filter_enlarge(){
+//    char quarter;
+//    cout<<"Which quarter to enlarge 1, 2, 3 or 4?\n";
+//    cin>>quarter;
+//    unsigned char enlarged_image[SIZE][SIZE];
+//    switch (quarter) {
+//        case '1':
+//            //put each pixel between( row 0 to row 127 && coloumn 0 to coloumn 127) in 4 pixel in shape of square 2x2
+//            for (int i = 0; i < (SIZE/2); i++){
+//                for (int j =0 ; j <(SIZE/2); j++){
+//                    enlarged_image[(i*2)][(j*2)]     = image[i][j];
+//                    enlarged_image[(i*2)+1][(j*2)]   = image[i][j];
+//                    enlarged_image[(i*2)][(j*2)+1]   = image[i][j];
+//                    enlarged_image[(i*2)+1][(j*2)+1] = image[i][j];
+//                }
+//            }for(int i = 0;i <SIZE;i++){
+//        for(int j = 0;j < SIZE;j++ ){
+//            image[i][j] = enlarged_image[i][j];
+//        }
+//    }
+//            break;
+//        case '2':
+//            //put each pixel between( row 0 to row 127 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
+//            for (int i = 0; i < (SIZE/2); i++){
+//                for (int j =0 ; j <(SIZE/2); j++){
+//                    enlarged_image[(i*2)][(j*2)]     = image[i][j+128];
+//                    enlarged_image[(i*2)+1][(j*2)]   = image[i][j+128];
+//                    enlarged_image[(i*2)][(j*2)+1]   = image[i][j+128];
+//                    enlarged_image[(i*2)+1][(j*2)+1] = image[i][j+128];
+//                }
+//            }for(int i = 0;i <SIZE;i++){
+//        for(int j = 0;j < SIZE;j++ ){
+//            image[i][j] = enlarged_image[i][j];
+//        }
+//    }
+//            break;
+//        case '3':
+//            //put each pixel between( row 128 to row 255 && coloumn 0 to coloumn 127) in 4 pixel in shape of square 2x2
+//            for (int i = 0; i < (SIZE/2); i++){
+//                for (int j =0 ; j <(SIZE/2); j++){
+//                    enlarged_image[(i*2)][(j*2)]     = image[i+128][j];
+//                    enlarged_image[(i*2)+1][(j*2)]   = image[i+128][j];
+//                    enlarged_image[(i*2)][(j*2)+1]   = image[i+128][j];
+//                    enlarged_image[(i*2)+1][(j*2)+1] = image[i+128][j];
+//                }
+//            }for(int i = 0;i <SIZE;i++){
+//        for(int j = 0;j < SIZE;j++ ){
+//            image[i][j] = enlarged_image[i][j];
+//        }
+//    }
+//            break;
+//        case '4':
+//            //put each pixel between( row 128 to row 255 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
+//            for (int i = 0; i < (SIZE/2); i++){
+//                for (int j =0 ; j <(SIZE/2); j++){
+//                    enlarged_image[(i*2)][(j*2)]     = image[i+128][j+128];
+//                    enlarged_image[(i*2)+1][(j*2)]   = image[i+128][j+128];
+//                    enlarged_image[(i*2)][(j*2)+1]   = image[i+128][j+128];
+//                    enlarged_image[(i*2)+1][(j*2)+1] = image[i+128][j+128];
+//                }
+//            }for(int i = 0;i <SIZE;i++){
+//        for(int j = 0;j < SIZE;j++ ){
+//            image[i][j] = enlarged_image[i][j];
+//        }
+//    }
+//            break;
+//        default:
+//            cout<<"Invalid Quarter, please choose a valid one\n";
+//            filter_enlarge();
+//            break;
+//    }
+//}
+//void filter_detect_edges(){
+//    for (auto &i: image) {
+//        for (unsigned char &j: i) {
+//            if (j >= 128)
+//                j = 255;
+//            else
+//                j = 0;
+//        }
+//    }
+//    for (int i = 0; i < SIZE; ++i) {
+//        for (int j = 0; j < SIZE; ++j) {
+//            image3[i][j] = image[i][j];
+//        }
+//    }
+//    for (auto & i : image) {
+//        for (unsigned char & j : i) {
+//            j = 255;
+//        }
+//    }
+//    for (int i = 1; i < SIZE-1; i++) {
+//        for (int j = 1; j < SIZE-1; j++) {
+//            if(image3[i][j]!=image3[i][j+1]&&image3[i][j]==image3[i][j-1]||image3[i][j]!=image3[i][j-1]&&image3[i][j]==image3[i][j+1]||image3[i][j]!=image3[i+1][j]&&image3[i][j]==image3[i-1][j]||image3[i][j]!=image3[i-1][j]&&image3[i][j]==image3[i+1][j]){
+//                image[i][j] = 0;
+//            }
+//        }
+//    }
+//
+//}
 void filter_brighten_darken(){
     char ch;
     cout<<"Do you want to (d)arken or (l)ighten? \n";
