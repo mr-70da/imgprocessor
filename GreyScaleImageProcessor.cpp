@@ -1,5 +1,10 @@
-// Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com
-// Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com
+// Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com Group:S6.
+// Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com     Group:S6.
+// FCAI – OOP Programming – 2023 - Assignment 1 
+// Program Name:				GreyScaleImageProcessor.cpp
+// Last Modification Date:	13/10/2023
+// Teaching Assistant:		xxxxx xxxxx
+// Purpose: Adding filters to greyscale BMP Images.	
 
 
 #include <iostream>
@@ -13,7 +18,7 @@ using namespace std;
 unsigned char image[SIZE][SIZE];
 unsigned char MergImage[SIZE][SIZE];
 unsigned char image3[SIZE][SIZE];
-bool Exit = false;
+bool isExit = false;
 void filter_skew_vertical();
 void loadImage();
 void Image_for_Merging ();
@@ -35,7 +40,7 @@ void filter_skew_horizontal();
 int main(){
     cout<<"Ahlan ya user ya habibi \uF04A\n";
     loadImage();
-    while (!Exit){ filters(); }
+    while (!isExit){ filters(); }
     return 0;
 }
 void saveImage () {
@@ -46,51 +51,12 @@ void saveImage () {
     writeGSBMP(imageFileName, image);
 }
 void filter_merge(){
+    int avreage = 0;
+    //take avreage of the two pixels and put then in one.
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            image[i][j] = (image[i][j] + MergImage[i][j]) / 2;
-        }
-    }
-}
-void filter_skew_horizontal(){
-    double rad;
-    cout<<"Please enter degree to skew right: \n";
-    cin >> rad;
-    rad = ( rad * 22 ) / ( 180 * 7 ) ;
-    double mov = tan(rad) * 256 ,comp;
-    double step = mov / SIZE ;
-    mov  = floor(mov),comp = mov;
-    unsigned char img_in[SIZE][SIZE+(int)mov],shrink_image[SIZE][SIZE];
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE+(int)mov; ++j) {
-            img_in[i][j] =255;
-        }
-    }
-    for (int i = 0; i < SIZE; ++i) {
-        for (int j = 0; j < SIZE; ++j) {
-            shrink_image[i][j] =255;
-        }
-    }
-    int avg = ceil((SIZE+comp)/SIZE);
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < (SIZE) / avg; j++) {
-            int avg2 = 0;
-            for (int k = 0; k < avg; ++k) {
-                avg2 += image[i][j * avg + k];
-            }
-            avg2 /= avg;
-            shrink_image[i][j] = avg2;
-        }
-    }
-    for ( int i = 0 ; i < SIZE ; i++ ){
-        for ( int j = 0 ; j < SIZE; j++ ){
-            img_in[i][j+(int)mov] = shrink_image[i][j];
-        }
-        mov -= step ;
-    }
-    for ( int i = 0 ; i < SIZE ; i++ ){
-        for ( int j = 0 ; j < SIZE; j++ ){
-            image[i][j] = img_in[i][j];
+            avreage = (image[i][j] + MergImage[i][j]) / 2
+            image[i][j] = avreage;
         }
     }
 }
@@ -381,6 +347,12 @@ void filter_brighten_darken(){
     }
 }
 void filter_rotate(){
+    //copying to temp image
+    for (int i = 0; i < SIZE; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    image3[i][j] = image[i][j];
+                }
+            }
     int Rotation_Degree;
     //ask user about rotation degree he wants.
     cout << "Rotate (90), (180) or (360) degrees? \n";
@@ -422,6 +394,12 @@ void filter_rotate(){
         filter_rotate();}
 }
 void filter_flip(){
+    //copying image to temp.
+    for (int i = 0; i < SIZE; ++i) {
+                for (int j = 0; j < SIZE; ++j) {
+                    image3[i][j] = image[i][j];
+                }
+            }
     //ask user where to flip he wants.
     char flip;
     cout << "Flip (h)orizontally or (v)ertically ? \n";
@@ -473,18 +451,59 @@ void filter_invert(){
             j = 255 - j;
         }
     }
-}void filter_skew_vertical(){
-    double rad ;
-    cout<<"Please enter degree to skew up: \n";
-    cin >> rad ;
-    rad = ( rad * 22 ) / ( 180 * 7 ) ;
-    double mov = tan(rad) * 256 ,comp;
-    double step = mov / SIZE ;
-    mov  = floor(mov),comp = mov;
-    unsigned char img_in[SIZE+(int)mov][SIZE],shrink_image[SIZE][SIZE],copy[SIZE][SIZE];
-    for (int i = 0; i < SIZE+(int)mov; ++i) {
+}void filter_skew_horizontal(){
+    double AngelOfSkewness ;
+    cout<<"Please enter degree to skew right: \n";
+    cin >> AngelOfSkewness ;
+    AngelOfSkewness  = ( AngelOfSkewness  * 22 ) / ( 180 * 7 ) ;
+    double move = tan(AngelOfSkewness ) * 256 ,comp;
+    double step = move / SIZE ;
+    move  = floor(move),comp = move;
+    unsigned char SkewedImage[SIZE][SIZE+(int)move],shrink_image[SIZE][SIZE];
+    for (int i = 0; i < SIZE; ++i) {
+        for (int j = 0; j < SIZE+(int)move; ++j) {
+            SkewedImage[i][j] =255;
+        }
+    }
+    for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            img_in[i][j] =255;
+            shrink_image[i][j] =255;
+        }
+    }
+    int Avreage = ceil((SIZE+comp)/SIZE);
+    for (int i = 0; i < SIZE; i++) {
+        for (int j = 0; j < (SIZE) / Avreage; j++) {
+            int AvreagePixel = 0;
+            for (int k = 0; k < Avreage; ++k) {
+                AvreagePixel += image[i][j * Avreage + k];
+            }
+            AvreagePixel/= Avreage;
+            shrink_image[i][j] = AvreagePixel;
+        }
+    }
+    for ( int i = 0 ; i < SIZE ; i++ ){
+        for ( int j = 0 ; j < SIZE; j++ ){
+           SkewedImage[i][j+(int)move] = shrink_image[i][j];
+        }
+        move -= step ;
+    }
+    for ( int i = 0 ; i < SIZE ; i++ ){
+        for ( int j = 0 ; j < SIZE; j++ ){
+            image[i][j] = SkewedImage[i][j];
+        }
+    }
+}void filter_skew_vertical(){
+    double  AngelOfSkewness ;
+    cout<<"Please enter degree to skew up: \n";
+    cin >> AngelOfSkewness ;
+    AngelOfSkewness = (  AngelOfSkewness * 22 ) / ( 180 * 7 ) ;
+    double move = tan( AngelOfSkewness) * 256 ,comp;
+    double step = move / SIZE ;
+    move  = floor(move),comp = move;
+    unsigned char SkewedImage[SIZE+(int)move][SIZE],shrink_image[SIZE][SIZE],copy[SIZE][SIZE];
+    for (int i = 0; i < SIZE+(int)move; ++i) {
+        for (int j = 0; j < SIZE; ++j) {
+            SkewedImage[i][j] =255;
         }
     }
     for (int i = 0; i < SIZE; ++i) {
@@ -492,19 +511,19 @@ void filter_invert(){
             shrink_image[i][j] =255,copy[i][j] = 255;
         }
     }
-    int avg = ceil((SIZE+comp)/SIZE);
-    for (int i = 0; i < (SIZE) / avg; i++) {
+    int Avreage= ceil((SIZE+comp)/SIZE);
+    for (int i = 0; i < (SIZE) / Avreage; i++) {
         for (int j = 0; j < SIZE; j++) {
-            int avg2 = 0;
-            for (int k = 0; k < avg; ++k) {
-                avg2 += image[i * avg + k][j];
+            int AvreagePixel = 0;
+            for (int k = 0; k < Avreage; ++k) {
+                AvreagePixel += image[i * Avreage + k][j];
             }
-            avg2 /= avg;
-            shrink_image[i][j] = avg2;
+            AvreagePixel /= Avreage;
+            shrink_image[i][j] = AvreagePixel;
         }
     }
     int row = 255;
-    for (int i = SIZE/avg-1; i >= 0; --i) {
+    for (int i = SIZE/Avreage-1; i >= 0; --i) {
         for (int j = 0; j < SIZE; ++j) {
             copy[row][j] = shrink_image[i][j];
         }
@@ -513,14 +532,14 @@ void filter_invert(){
     double scale = 0;
     for ( int i = SIZE-1 ; i >=0 ; i-- ){
         for ( int j = 0 ; j <SIZE ; j++ ){
-            img_in[i-(int)scale][j] = copy[i][j];
+            SkewedImage[i-(int)scale][j] = copy[i][j];
             scale += step ;
         }
         scale = 0;
     }
     for ( int i = 0 ; i < SIZE ; i++ ){
         for ( int j = 0 ; j < SIZE; j++ ){
-            image[i][j] = img_in[i][j];
+            image[i][j] = SkewedImage[i][j];
         }
     }
 }
@@ -548,22 +567,13 @@ void filters() {
             filter_merge();
             break;
         case '4':
-            for (int i = 0; i < SIZE; ++i) {
-                for (int j = 0; j < SIZE; ++j) {
-                    image3[i][j] = image[i][j];
-                }
-            }
             filter_flip();
             break;
         case '5':
             filter_brighten_darken();
             break;
         case '6':
-            for (int i = 0; i < SIZE; ++i) {
-                for (int j = 0; j < SIZE; ++j) {
-                    image3[i][j] = image[i][j];
-                }
-            }
+            
             filter_rotate();
             break;
         case '7':
@@ -597,7 +607,7 @@ void filters() {
             saveImage();
             break;
         case '0':
-            Exit= true;
+            isExit= true;
             break;
         default:
             cout << "Please try a vaild filter:";
