@@ -17,7 +17,7 @@
 using namespace std;
 unsigned char image[SIZE][SIZE];
 unsigned char MergImage[SIZE][SIZE];
-unsigned char image3[SIZE][SIZE];
+unsigned char TempImage[SIZE][SIZE];
 bool isExit = false;
 void filter_skew_vertical();
 void loadImage();
@@ -350,7 +350,7 @@ void filter_rotate(){
     //copying to temp image
     for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    image3[i][j] = image[i][j];
+                    TempImage[i][j] = image[i][j];
                 }
             }
     int Rotation_Degree;
@@ -397,7 +397,7 @@ void filter_flip(){
     //copying image to temp.
     for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    image3[i][j] = image[i][j];
+                    TempImage[i][j] = image[i][j];
                 }
             }
     //ask user where to flip he wants.
