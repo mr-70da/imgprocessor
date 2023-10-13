@@ -55,7 +55,7 @@ void filter_merge(){
     //take avreage of the two pixels and put then in one.
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            avreage = (image[i][j] + MergImage[i][j]) / 2
+            avreage = (image[i][j] + MergImage[i][j]) / 2;
             image[i][j] = avreage;
         }
     }
@@ -302,7 +302,7 @@ void filter_detect_edges(){
     }
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            image3[i][j] = image[i][j];
+            TempImage[i][j] = image[i][j];
         }
     }
     for (auto & i : image) {
@@ -312,7 +312,7 @@ void filter_detect_edges(){
     }
     for (int i = 1; i < SIZE-1; i++) {
         for (int j = 1; j < SIZE-1; j++) {
-            if(image3[i][j]!=image3[i][j+1]&&image3[i][j]==image3[i][j-1]||image3[i][j]!=image3[i][j-1]&&image3[i][j]==image3[i][j+1]||image3[i][j]!=image3[i+1][j]&&image3[i][j]==image3[i-1][j]||image3[i][j]!=image3[i-1][j]&&image3[i][j]==image3[i+1][j]){
+            if(TempImage[i][j]!=TempImage[i][j+1]&&TempImage[i][j]==TempImage[i][j-1]||TempImage[i][j]!=TempImage[i][j-1]&&TempImage[i][j]==TempImage[i][j+1]||TempImage[i][j]!=TempImage[i+1][j]&&TempImage[i][j]==TempImage[i-1][j]||TempImage[i][j]!=TempImage[i-1][j]&&TempImage[i][j]==TempImage[i+1][j]){
                 image[i][j] = 0;
             }
         }
@@ -360,7 +360,7 @@ void filter_rotate(){
     //check rotation degree.
     if (Rotation_Degree == 90) {
         int l = SIZE - 1, k = 0;
-        for (auto & i : image3) {
+        for (auto & i : TempImage) {
             for (unsigned char j : i) {
                 image[k][l] = j;
                 k++;
@@ -370,7 +370,7 @@ void filter_rotate(){
         }
     } else if (Rotation_Degree == 180) {
         int l = SIZE - 1, k = SIZE - 1;
-        for (auto & i : image3) {
+        for (auto & i : TempImage) {
             for (unsigned char j : i) {
                 image[k][l] = j;
                 l--;
@@ -380,7 +380,7 @@ void filter_rotate(){
         }
     } else if (Rotation_Degree == 270) {
         int l = 0, k = SIZE - 1;
-        for (auto & i : image3) {
+        for (auto & i :TempImage) {
             for (unsigned char j : i) {
                 image[k][l] = j;
                 k--;
@@ -408,7 +408,7 @@ void filter_flip(){
     //check flip.
     if (flip == 'v') {
         int k = SIZE - 1, l = 0;
-        for (auto & i : image3) {
+        for (auto & i : TempImage) {
             for (unsigned char j : i) {
                 image[k][l] = j;
                 ++l;
@@ -418,7 +418,7 @@ void filter_flip(){
         }
     } else if (flip == 'h') {
         int k = 0, l = SIZE - 1;
-        for (auto & i : image3) {
+        for (auto & i :TempImage) {
             for (unsigned char j : i) {
                 image[k][l] = j;
                 --l;
