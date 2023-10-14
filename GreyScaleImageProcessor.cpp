@@ -1,10 +1,10 @@
 // Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com Group:S6.
 // Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com     Group:S6.
-// FCAI – OOP Programming – 2023 - Assignment 1 
+// FCAI – OOP Programming – 2023 - Assignment 1
 // Program Name:				GreyScaleImageProcessor.cpp
 // Last Modification Date:	13/10/2023
 // Teaching Assistant:		xxxxx xxxxx
-// Purpose: Adding filters to greyscale BMP Images.	
+// Purpose: Adding filters to greyscale BMP Images.
 
 
 #include <iostream>
@@ -349,10 +349,10 @@ void filter_brighten_darken(){
 void filter_rotate(){
     //copying to temp image
     for (int i = 0; i < SIZE; ++i) {
-                for (int j = 0; j < SIZE; ++j) {
-                    TempImage[i][j] = image[i][j];
-                }
-            }
+        for (int j = 0; j < SIZE; ++j) {
+            TempImage[i][j] = image[i][j];
+        }
+    }
     int Rotation_Degree;
     //ask user about rotation degree he wants.
     cout << "Rotate (90), (180) or (360) degrees? \n";
@@ -396,10 +396,10 @@ void filter_rotate(){
 void filter_flip(){
     //copying image to temp.
     for (int i = 0; i < SIZE; ++i) {
-                for (int j = 0; j < SIZE; ++j) {
-                    TempImage[i][j] = image[i][j];
-                }
-            }
+        for (int j = 0; j < SIZE; ++j) {
+            TempImage[i][j] = image[i][j];
+        }
+    }
     //ask user where to flip he wants.
     char flip;
     cout << "Flip (h)orizontally or (v)ertically ? \n";
@@ -470,26 +470,24 @@ void filter_invert(){
             shrink_image[i][j] =255;
         }
     }
-    int Avreage = ceil((SIZE+comp)/SIZE);
-    for (int i = 0; i < SIZE; i++) {
-        for (int j = 0; j < (SIZE) / Avreage; j++) {
-            int AvreagePixel = 0;
-            for (int k = 0; k < Avreage; ++k) {
-                AvreagePixel += image[i][j * Avreage + k];
-            }
-            AvreagePixel/= Avreage;
-            shrink_image[i][j] = AvreagePixel;
-        }
-    }
     for ( int i = 0 ; i < SIZE ; i++ ){
         for ( int j = 0 ; j < SIZE; j++ ){
-           SkewedImage[i][j+(int)move] = shrink_image[i][j];
+            SkewedImage[i][j+(int)move] = image[i][j];
         }
         move -= step ;
     }
+    double end  = 0.0;
+    for (int i = 0; i < SIZE; i++) {
+        double k =0.0;
+        for (int j = 0; j < SIZE-(int)end; j++) {
+            shrink_image[i][j] = SkewedImage[i][j+(int)k];
+            k+=step;
+        }
+        end += step/2;
+    }
     for ( int i = 0 ; i < SIZE ; i++ ){
         for ( int j = 0 ; j < SIZE; j++ ){
-            image[i][j] = SkewedImage[i][j];
+            image[i][j] = shrink_image[i][j];
         }
     }
 }void filter_skew_vertical(){
@@ -573,7 +571,7 @@ void filters() {
             filter_brighten_darken();
             break;
         case '6':
-            
+
             filter_rotate();
             break;
         case '7':
