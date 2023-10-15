@@ -1,8 +1,8 @@
 // Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com Group:S6.
 // Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com     Group:S6.
 // FCAI – OOP Programming – 2023 - Assignment 1
-// Program Name:				GreyScaleImageProcessor.cpp
-// Last Modification Date:	13/10/2023
+// Program Name:			GreyScaleImageProcessor.cpp
+// Last Modification Date:	15/10/2023
 // Teaching Assistant:		xxxxx xxxxx
 // Purpose: Adding filters to greyscale BMP Images.
 
@@ -541,9 +541,19 @@ void filters() {
             "4-Flip Image\n"
             "5-Darken and Lighten Image \n"
             "6-Rotate Image\n"
+            "7-Detect Image Edges \n"
+            "8-Enlarge Image\n"
+            "9-Shrink Image\n"
+            "a-Mirror 1/2 Image\n"
+            "b-Shuffle Image\n"
+            "c-Blur Image\n"
+            "d-Crop Image\n"
+            "e-Skew Image Right  \n"
+            "f-Skew Image Up  \n"
             "s-Save the image to a file\n"
             "0-Exit\n";
     cin >> filter_Applied;
+    filter_Applied = tolower(filter_Applied);
     switch (filter_Applied) {
         case '1':
             filter_black_white();
@@ -562,7 +572,6 @@ void filters() {
             filter_brighten_darken();
             break;
         case '6':
-
             filter_rotate();
             break;
         case '7':
@@ -599,7 +608,7 @@ void filters() {
             isExit= true;
             break;
         default:
-            cout << "Please try a vaild filter:";
+            cout << "Please try a vaild filter:\n";
             break;
     }
 }
