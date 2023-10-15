@@ -509,35 +509,26 @@ void filter_invert(){
             shrink_image[i][j] =255,copy[i][j] = 255;
         }
     }
-    int Avreage= ceil((SIZE+comp)/SIZE);
-    for (int i = 0; i < (SIZE) / Avreage; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            int AvreagePixel = 0;
-            for (int k = 0; k < Avreage; ++k) {
-                AvreagePixel += image[i * Avreage + k][j];
-            }
-            AvreagePixel /= Avreage;
-            shrink_image[i][j] = AvreagePixel;
-        }
-    }
-    int row = 255;
-    for (int i = SIZE/Avreage-1; i >= 0; --i) {
-        for (int j = 0; j < SIZE; ++j) {
-            copy[row][j] = shrink_image[i][j];
-        }
-        row--;
-    }
     double scale = 0;
+    double end  = 0.0;
     for ( int i = SIZE-1 ; i >=0 ; i-- ){
         for ( int j = 0 ; j <SIZE ; j++ ){
-            SkewedImage[i-(int)scale][j] = copy[i][j];
+            SkewedImage[i-(int)scale+(int)comp+(int)end][j] = image[i][j];
             scale += step ;
         }
         scale = 0;
+        end+=step/2;
+    }
+    for ( int i = SIZE-1 ; i >=0 ; i--){
+        double k =0.0;
+        for ( int j = 0 ; j <SIZE ; j++ ){
+            copy[i][j] = SkewedImage[i-(int)k+(int)comp][j];
+            k+=step/2;
+        }
     }
     for ( int i = 0 ; i < SIZE ; i++ ){
         for ( int j = 0 ; j < SIZE; j++ ){
-            image[i][j] = SkewedImage[i][j];
+            image[i][j] = copy[i][j];
         }
     }
 }
