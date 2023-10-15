@@ -242,72 +242,81 @@ void filter_enlarge(){
     unsigned char enlarged_image[SIZE][SIZE][3];
     switch (quarter) {
         case '1':
-            //put each pixel between( row 0 to row 127 && coloumn 0 to coloumn 127) in 4 pixel in shape of square 2x2
+            //put each pixel between( row 0 to row 127 && column 0 to column 127) in 4 pixel in shape of square 2x2
             for (int i = 0; i < (SIZE/2); i++){
-                for (int j =0 ; j <(SIZE/2); j++){
+                for (int j =0 ; j < (SIZE/2); j++){
                     for (int k = 0; k < 3; ++k) {
-                        enlarged_image[(i * 2)][(j * 2)][k] = image[i][j][k];
-                        enlarged_image[(i * 2) + 1][(j * 2)][k] = image[i][j][k];
-                        enlarged_image[(i * 2)][(j * 2) + 1][k] = image[i][j][k];
+                        enlarged_image[(i * 2)][(j * 2)][k]         = image[i][j][k];
+                        enlarged_image[(i * 2) + 1][(j * 2)][k]     = image[i][j][k];
+                        enlarged_image[(i * 2)][(j * 2) + 1][k]     = image[i][j][k];
                         enlarged_image[(i * 2) + 1][(j * 2) + 1][k] = image[i][j][k];
                     }
                 }
-            }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = enlarged_image[i][j][k]; }
-        }
-    }
+            }
+            for(int i = 0;i <SIZE;i++){
+                for(int j = 0;j < SIZE;j++ ){
+                    for (int k = 0; k < 3; ++k){
+                        image[i][j][k] = enlarged_image[i][j][k];
+                    }
+                }
+            }
             break;
         case '2':
-            //put each pixel between( row 0 to row 127 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
+            //put each pixel between( row 0 to row 127 && column 128 to column 255) in 4 pixel in shape of square 2x2
             for (int i = 0; i < (SIZE/2); i++){
                 for (int j =0 ; j <(SIZE/2); j++){
                     for (int k = 0; k < 3; ++k){
-                        enlarged_image[(i * 2)][(j * 2)][k] = image[i][j + 128][k];
-                        enlarged_image[(i * 2) + 1][(j * 2)][k] = image[i][j + 128][k];
-                        enlarged_image[(i * 2)][(j * 2) + 1][k] = image[i][j + 128][k];
+                        enlarged_image[(i * 2)][(j * 2)][k]         = image[i][j + 128][k];
+                        enlarged_image[(i * 2) + 1][(j * 2)][k]     = image[i][j + 128][k];
+                        enlarged_image[(i * 2)][(j * 2) + 1][k]     = image[i][j + 128][k];
                         enlarged_image[(i * 2) + 1][(j * 2) + 1][k] = image[i][j + 128][k];
                     }
                 }
             }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = enlarged_image[i][j][k]; }
-        }
-    }
+                for(int j = 0;j < SIZE;j++ ){
+                     for (int k = 0; k < 3; ++k){
+                         image[i][j][k] = enlarged_image[i][j][k];
+                     }
+                }
+            }
             break;
         case '3':
             //put each pixel between( row 128 to row 255 && coloumn 0 to coloumn 127) in 4 pixel in shape of square 2x2
             for (int i = 0; i < (SIZE/2); i++){
                 for (int j =0 ; j <(SIZE/2); j++){
                     for (int k = 0; k < 3; ++k){
-                        enlarged_image[(i * 2)][(j * 2)][k] = image[i + 128][j][k];
-                        enlarged_image[(i * 2) + 1][(j * 2)][k] = image[i + 128][j][k];
-                        enlarged_image[(i * 2)][(j * 2) + 1][k] = image[i + 128][j][k];
+                        enlarged_image[(i * 2)][(j * 2)][k]         = image[i + 128][j][k];
+                        enlarged_image[(i * 2) + 1][(j * 2)][k]     = image[i + 128][j][k];
+                        enlarged_image[(i * 2)][(j * 2) + 1][k]     = image[i + 128][j][k];
                         enlarged_image[(i * 2) + 1][(j * 2) + 1][k] = image[i + 128][j][k];
                     }
                 }
             }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = enlarged_image[i][j][k]; }
-        }
-    }
+                 for(int j = 0;j < SIZE;j++ ){
+                     for (int k = 0; k < 3; ++k){
+                         image[i][j][k] = enlarged_image[i][j][k];
+                     }
+                 }
+            }
             break;
         case '4':
             //put each pixel between( row 128 to row 255 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
             for (int i = 0; i < (SIZE/2); i++){
                 for (int j =0 ; j <(SIZE/2); j++){
                     for (int k = 0; k < 3; ++k){
-                        enlarged_image[(i * 2)][(j * 2)][k] = image[i + 128][j + 128][k];
-                        enlarged_image[(i * 2) + 1][(j * 2)][k] = image[i + 128][j + 128][k];
-                        enlarged_image[(i * 2)][(j * 2) + 1][k] = image[i + 128][j + 128][k];
+                        enlarged_image[(i * 2)][(j * 2)][k]         = image[i + 128][j + 128][k];
+                        enlarged_image[(i * 2) + 1][(j * 2)][k]     = image[i + 128][j + 128][k];
+                        enlarged_image[(i * 2)][(j * 2) + 1][k]     = image[i + 128][j + 128][k];
                         enlarged_image[(i * 2) + 1][(j * 2) + 1][k] = image[i + 128][j + 128][k];
                     }
                 }
             }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = enlarged_image[i][j][k]; }
-        }
-    }
+                for(int j = 0;j < SIZE;j++ ){
+                    for (int k = 0; k < 3; ++k){
+                        image[i][j][k] = enlarged_image[i][j][k];
+                    }
+                }
+            }
             break;
         default:
             cout<<"Invalid Quarter, please choose a valid one\n";
@@ -322,13 +331,14 @@ void filter_shrink(){
     cin>>shrink_scale;
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k){ shrink_image[i][j][k] = 255; }
+            for (int k = 0; k < 3; ++k){
+                shrink_image[i][j][k] = 255;
+            }
         }
     }
     if(shrink_scale=="1/2"){
         for (int i = 0; i < SIZE/2 - 1; i++) {
             for (int j = 0; j < SIZE/2 - 1; j++) {
-                int avg = 0;
                 for (int x = 0; x < 3; ++x) {
                     shrink_image[i][j][x] =  (image[i * 2 + 0][j * 2 + 0][x]+image[i * 2 + 0][j * 2 + 1][x]+image[i * 2 + 1][j * 2 + 0][x]+image[i * 2 + 1][j * 2 + 1][x])/4;
                 }
@@ -338,10 +348,11 @@ void filter_shrink(){
     else if(shrink_scale=="1/3"){
         for (int i = 0; i < SIZE/3 - 2; i++) {
             for (int j = 0; j < SIZE/3 - 2; j++) {
-                for (int k = 0; k < 3; ++k){ shrink_image[i][j][k] = (image[i * 3][j * 3][k] + image[i * 3][j * 3 + 1][k] + image[i * 3][j * 3 + 2][k] +
-                                        image[i * 3 + 1][j * 3][k] + image[i * 3 + 1][j * 3 + 1][k] +
-                                        image[i * 3 + 1][j * 3 + 2][k] + image[i * 3 + 2][j * 3][k] +
-                                        image[i * 3 + 2][j * 3 + 1][k] + image[i * 3 + 2][j * 3 + 2][k]) / 9;
+                for (int k = 0; k < 3; ++k){
+                    shrink_image[i][j][k] = (image[i * 3][j * 3][k] + image[i * 3][j * 3 + 1][k] + image[i * 3][j * 3 + 2][k] +
+                                                                      image[i * 3 + 1][j * 3][k] + image[i * 3 + 1][j * 3 + 1][k] +
+                                                                      image[i * 3 + 1][j * 3 + 2][k] + image[i * 3 + 2][j * 3][k] +
+                                                                      image[i * 3 + 2][j * 3 + 1][k] + image[i * 3 + 2][j * 3 + 2][k]) / 9;
                 }
             }
         }
@@ -349,14 +360,15 @@ void filter_shrink(){
     else if(shrink_scale=="1/4"){
         for (int i = 0; i < SIZE/4 - 3; i++) {
             for (int j = 0; j < SIZE/4 - 3; j++) {
-                for (int k = 0; k < 3; ++k){ shrink_image[i][j][k] = (image[i * 4][j * 4][k] + image[i * 4][j * 4 + 1][k] + image[i * 4][j * 4 + 2][k] +
-                                        image[i * 4][j * 4 + 3][k] + image[i * 4 + 1][j * 4][k] +
-                                        image[i * 4 + 1][j * 4 + 1][k] + image[i * 4 + 1][j * 4 + 2][k] +
-                                        image[i * 4 + 1][j * 4 + 3][k] + image[i * 4 + 2][j * 4][k] +
-                                        image[i * 4 + 2][j * 4 + 1][k] + image[i * 4 + 2][j * 4 + 2][k] +
-                                        image[i * 4 + 2][j * 4 + 3][k] + image[i * 4 + 3][j * 4][k] +
-                                        image[i * 4 + 3][j * 4 + 1][k] + image[i * 4 + 3][j * 4 + 2][k] +
-                                        image[i * 4 + 3][j * 4 + 3][k]) / 16;
+                for (int k = 0; k < 3; ++k){
+                    shrink_image[i][j][k] = (image[i * 4][j * 4][k] + image[i * 4][j * 4 + 1][k] + image[i * 4][j * 4 + 2][k] +
+                                                                      image[i * 4][j * 4 + 3][k] + image[i * 4 + 1][j * 4][k] +
+                                                                      image[i * 4 + 1][j * 4 + 1][k] + image[i * 4 + 1][j * 4 + 2][k] +
+                                                                      image[i * 4 + 1][j * 4 + 3][k] + image[i * 4 + 2][j * 4][k] +
+                                                                      image[i * 4 + 2][j * 4 + 1][k] + image[i * 4 + 2][j * 4 + 2][k] +
+                                                                      image[i * 4 + 2][j * 4 + 3][k] + image[i * 4 + 3][j * 4][k] +
+                                                                      image[i * 4 + 3][j * 4 + 1][k] + image[i * 4 + 3][j * 4 + 2][k] +
+                                                                      image[i * 4 + 3][j * 4 + 3][k]) / 16;
                 }
             }
         }
@@ -367,7 +379,9 @@ void filter_shrink(){
     }
     for (int i = 0; i < SIZE; i++) {
         for (int j = 0; j < SIZE; j++) {
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = shrink_image[i][j][k]; }
+            for (int k = 0; k < 3; ++k){
+                image[i][j][k] = shrink_image[i][j][k];
+            }
         }
     }
 }
@@ -376,33 +390,40 @@ void filter_mirror(){
     cout<<"Mirror (l)eft, (r)ight, (u)pper, (d)own side? \n";
     cin>>mirror_side;
     mirror_side = tolower(mirror_side);
-    int row,column;
     switch(mirror_side){
         case'l':
             for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    for (int k = 0; k < 3; ++k){ image[i][SIZE - j][k] = image[i][j][k]; }
+                    for (int k = 0; k < 3; ++k){
+                        image[i][SIZE - j][k] = image[i][j][k];
+                    }
                 }//choose where to start from and put it in reverse
             }
             break;
         case'r':
             for (int i = 0; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    {for (int k = 0; k < 3; ++k) image[i][j][k] = image[i][SIZE - j][k]; }
+                    {for (int k = 0; k < 3; ++k)
+                        image[i][j][k] = image[i][SIZE - j][k];
+                    }
                 }
             }
             break;
         case'u':
             for (int i = 0; i < SIZE/2; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    for (int k = 0; k < 3; ++k){ image[SIZE - i][j][k] = image[i][j][k]; }
+                    for (int k = 0; k < 3; ++k){
+                        image[SIZE - i][j][k] = image[i][j][k];
+                    }
                 }
             }
             break;
         case'd':
             for (int i = 128; i < SIZE; ++i) {
                 for (int j = 0; j < SIZE; ++j) {
-                    for (int k = 0; k < 3; ++k){ image[SIZE - i][j][k] = image[i][j][k]; }
+                    for (int k = 0; k < 3; ++k){
+                        image[SIZE - i][j][k] = image[i][j][k];
+                    }
                 }
             }
             break;
