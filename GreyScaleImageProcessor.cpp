@@ -312,7 +312,8 @@ void filter_detect_edges(){
     }
     for (int i = 1; i < SIZE-1; i++) {
         for (int j = 1; j < SIZE-1; j++) {
-            if(TempImage[i][j]!=TempImage[i][j+1]&&TempImage[i][j]==TempImage[i][j-1]||TempImage[i][j]!=TempImage[i][j-1]&&TempImage[i][j]==TempImage[i][j+1]||TempImage[i][j]!=TempImage[i+1][j]&&TempImage[i][j]==TempImage[i-1][j]||TempImage[i][j]!=TempImage[i-1][j]&&TempImage[i][j]==TempImage[i+1][j]){
+            if(TempImage[i][j]!=TempImage[i][j+1]&&TempImage[i][j]==TempImage[i][j-1]||TempImage[i][j]!=TempImage[i][j-1]&&TempImage[i][j]==TempImage[i][j+1]||TempImage[i][j]!=TempImage[i+1][j]&&TempImage[i][j]==TempImage[i-1][j]||TempImage[i][j]!=TempImage[i-1][j]&&TempImage[i][j]==TempImage[i+1][j])
+            {
                 image[i][j] = 0;
             }
         }
@@ -359,34 +360,34 @@ void filter_rotate(){
     cin >> Rotation_Degree;
     //check rotation degree.
     if (Rotation_Degree == 90) {
-        int l = SIZE - 1, k = 0;
+        int newColumn = SIZE - 1,newRow = 0;
         for (auto & i : TempImage) {
             for (unsigned char j : i) {
-                image[k][l] = j;
-                k++;
+                image[newRow][newColumn] = j;
+                newRow++;
             }
-            l--;
-            k = 0;
+            newColumn--;
+            newRow = 0;
         }
     } else if (Rotation_Degree == 180) {
-        int l = SIZE - 1, k = SIZE - 1;
+        int newColumn = SIZE - 1, newRow = SIZE - 1;
         for (auto & i : TempImage) {
             for (unsigned char j : i) {
-                image[k][l] = j;
-                l--;
+                image[newRow][newColumn] = j;
+                newColumn--;
             }
-            k--;
-            l = SIZE - 1;
+            newRow--;
+            newColumn = SIZE - 1;
         }
     } else if (Rotation_Degree == 270) {
-        int l = 0, k = SIZE - 1;
+        int newColumn = 0, newRow = SIZE - 1;
         for (auto & i :TempImage) {
             for (unsigned char j : i) {
-                image[k][l] = j;
-                k--;
+                image[newRow][newColumn] = j;
+                newRow--;
             }
-            l++;
-            k = SIZE - 1;
+            newColumn++;
+            newRow = SIZE - 1;
         }
     }
     else{
@@ -407,24 +408,24 @@ void filter_flip(){
     flip = tolower(flip);
     //check flip.
     if (flip == 'v') {
-        int k = SIZE - 1, l = 0;
+        int newRow = SIZE - 1, newColumn = 0;
         for (auto & i : TempImage) {
             for (unsigned char j : i) {
-                image[k][l] = j;
-                ++l;
+                image[newRow][newColumn] = j;
+                ++newColumn;
             }
-            k--;
-            l = 0;
+            newRow--;
+            newColumn = 0;
         }
     } else if (flip == 'h') {
-        int k = 0, l = SIZE - 1;
+        int newRow = 0, newColumn = SIZE - 1;
         for (auto & i :TempImage) {
             for (unsigned char j : i) {
-                image[k][l] = j;
-                --l;
+                image[newRow][newColumn] = j;
+                --newColumn;
             }
-            k++;
-            l = SIZE - 1;
+            newRow++;
+            newColumn = SIZE - 1;
         }
     }
     else{
