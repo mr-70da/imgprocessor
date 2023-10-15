@@ -587,6 +587,7 @@ void filters() {
             "s-Save the image to a file\n"
             "0-Exit\n";
     cin >> filter_Applied;
+    filter_Applied = tolower(filter_Applied);
     switch (filter_Applied) {
         case '1':
             filter_black_white();
@@ -645,7 +646,6 @@ void filters() {
             break;
     }
 }
-
 void loadImage () {
     char imageFileName[100];
     cout << "Please enter file name of the image to process: ";
