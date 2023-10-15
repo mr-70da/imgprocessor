@@ -1,10 +1,10 @@
 // Author1 and ID and Group: Mahmoud Ayman Ramadan ID:20220313 Email:man3092003city@gmail.com Group:S6.
 // Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com     Group:S6.
 // FCAI – OOP Programming – 2023 - Assignment 1
-// Program Name:				GreyScaleImageProcessor.cpp
-// Last Modification Date:	13/10/2023
+// Program Name:		RGBimageProcessor.cpp
+// Last Modification Date:	1/10/2023
 // Teaching Assistant:		xxxxx xxxxx
-// Purpose: Adding filters to greyscale BMP Images.
+// Purpose: Adding filters to RGB BMP Images.
 
 
 #include <iostream>
@@ -40,7 +40,9 @@ void filter_skew_horizontal();
 int main(){
     cout<<"Ahlan ya user ya habibi \uF04A\n";
     loadImage();
-    while (!isExit){ filters(); }
+    while (!isExit){
+        filters();
+    }
     return 0;
 }
 void saveImage () {
@@ -65,6 +67,7 @@ void filter_black_white(){
     }
 }
 void filter_invert(){
+    //to get the invert subtract each pixel from 255
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             for (int k = 0; k < 3; ++k) {
@@ -89,34 +92,43 @@ void filter_flip(){
     //copying image to temp.
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k) { TempImage[i][j][k] = image[i][j][k]; }
+            for (int k = 0; k < 3; ++k) {
+                TempImage[i][j][k] = image[i][j][k];
+            }
         }
     }
     //ask user where to flip he wants.
     char flip;
     cout << "Flip (h)orizontally or (v)ertically ? \n";
     cin >> flip;
+    //if user input 'H'or'V' change it to lower
     flip = tolower(flip);
     //check flip.
     if (flip == 'v') {
-        int k = SIZE - 1, l = 0;
-        for (int i = 0;i<SIZE;i++) {
-            for (int j = 0; j<SIZE;j++) {
-                for (int m = 0; m < 3; ++m) { image[k][l][m] = TempImage[i][j][m]; }
-                ++l;
+        //to flip vertically exchange rows first row in image = last row in temp
+        int newRaw = SIZE - 1, column = 0;
+        for (int i = 0 ; i < SIZE; i++) {
+            for (int j = 0; j<SIZE; j++) {
+                for (int m = 0; m < 3; ++m) {
+                    image[newRaw][column][m] = TempImage[i][j][m];
+                }
+                ++column;
             }
-            k--;
-            l = 0;
+            newRaw--;
+            column = 0;
         }
     } else if (flip == 'h') {
-        int k = 0, l = SIZE - 1;
+        //to flip horizontally exchange rows first column in image = last column in temp
+        int raw = 0, newColumn = SIZE - 1;
         for (int i = 0;i<SIZE;i++) {
             for (int j = 0; j<SIZE;j++) {
-                for (int m = 0; m < 3; ++m) { image[k][l][m] = TempImage[i][j][m]; }
-                --l;
+                for (int m = 0; m < 3; ++m) {
+                    image[raw][newColumn][m] = TempImage[i][j][m];
+                }
+                --newColumn;
             }
-            k++;
-            l = SIZE - 1;
+            raw++;
+            newColumn = SIZE - 1;
         }
     }
     else{
@@ -126,10 +138,13 @@ void filter_flip(){
     }
 }
 void filter_brighten_darken(){
-    char ch;
+    char brightness;
+    //ask user darken or lighten
     cout<<"Do you want to (d)arken or (l)ighten? \n";
-    cin>>ch;
-    if(ch =='d') {
+    cin>>brightness;
+    //if user enter uppercase letter convert to lowercase one
+    brightness = tolower(brightness);
+    if(brightness == 'd') {
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 for (int k = 0; k < 3; ++k) {
@@ -138,7 +153,7 @@ void filter_brighten_darken(){
             }
         }
     }
-    else if(ch=='l'){
+    else if(brightness=='l'){
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
                 for (int k = 0; k < 3; ++k) {
@@ -157,46 +172,56 @@ void filter_rotate(){
     //copying to temp image
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k) { TempImage[i][j][k] = image[i][j][k]; }
+            for (int k = 0; k < 3; ++k) {
+                TempImage[i][j][k] = image[i][j][k];
+            }
         }
     }
     int Rotation_Degree;
     //ask user about rotation degree he wants.
-    cout << "Rotate (90), (180),(270) or (360) degrees? \n";
+    cout << "Rotate (90), (180), (270) or (360) degrees?\n";
     cin >> Rotation_Degree;
     //check rotation degree.
     if (Rotation_Degree == 90) {
-        int l = SIZE - 1, k = 0;
+        int newRow = SIZE - 1, newColumn = 0;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                for (int m = 0; m < 3; ++m) {image[k][l][m] = TempImage[i][j][m];}
-                k++;
+                for (int m = 0; m < 3; ++m) {
+                    image[newRow][newColumn][m] = TempImage[i][j][m];
+                }
+                newRow++;
             }
-            l--;
-            k = 0;
+            newColumn--;
+            newRow = 0;
         }
     } else if (Rotation_Degree == 180) {
-        int l = SIZE - 1, k = SIZE - 1;
+        int newColumn = SIZE - 1, newRow  = SIZE - 1;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                for (int m = 0; m < 3; ++m) {image[k][l][m] = TempImage[i][j][m];}
-                l--;
+                for (int m = 0; m < 3; ++m) {
+                    image[newRow ][newColumn][m] = TempImage[i][j][m];
+                }
+                newColumn--;
             }
-            k--;
-            l = SIZE - 1;
+            newRow --;
+            newColumn = SIZE - 1;
         }
     } else if (Rotation_Degree == 270) {
-        int l = 0, k = SIZE - 1;
+        int newColumn = 0, newRow  = SIZE - 1;
         for (int i = 0; i < SIZE; ++i) {
             for (int j = 0; j < SIZE; ++j) {
-                for (int m = 0; m < 3; ++m) {image[k][l][m] = TempImage[i][j][m];}
-                k--;
+                for (int m = 0; m < 3; ++m) {
+                    image[newRow][newColumn][m] = TempImage[i][j][m];
+                }
+                newRow --;
             }
-            l++;
-            k = SIZE - 1;
+            newColumn++;
+            newRow  = SIZE - 1;
         }
     }
-    else if(Rotation_Degree==360){}
+    else if(Rotation_Degree==360){
+
+    }
     else{
         cout<<"Please choose a valid character: \n";
         filter_rotate();}
@@ -205,21 +230,25 @@ void filter_detect_edges(){
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
             if(image[i][j][0]<=128&&image[i][j][1]<=128&&image[i][j][2]<=128){
-                image[i][j][0] = 0,image[i][j][1]=0,image[i][j][2]=0;
+                image[i][j][0] = image[i][j][1] = image[i][j][2] = 0;
             }
             else{
-                image[i][j][0] = 255,image[i][j][1] = 255,image[i][j][2] = 255;
+                image[i][j][0] = image[i][j][1] = image[i][j][2] = 255;
             }
         }
     }
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k) { TempImage[i][j][k] = image[i][j][k]; }
+            for (int k = 0; k < 3; ++k) {
+                TempImage[i][j][k] = image[i][j][k];
+            }
         }
     }
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int m = 0; m < 3; ++m) {image[i][j][m] = 255;}
+            for (int m = 0; m < 3; ++m) {
+                image[i][j][m] = 255;
+            }
         }
     }
     for (int i = 1; i < SIZE-1; i++) {
@@ -228,7 +257,8 @@ void filter_detect_edges(){
                 if (TempImage[i][j][k] != TempImage[i][j + 1][k] && TempImage[i][j][k] == TempImage[i][j - 1][k] ||
                     TempImage[i][j][k] != TempImage[i][j - 1][k] && TempImage[i][j][k] == TempImage[i][j + 1][k] ||
                     TempImage[i][j][k] != TempImage[i + 1][j][k] && TempImage[i][j][k] == TempImage[i - 1][j][k] ||
-                    TempImage[i][j][k] != TempImage[i - 1][j][k] && TempImage[i][j][k] == TempImage[i + 1][j][k]) {
+                    TempImage[i][j][k] != TempImage[i - 1][j][k] && TempImage[i][j][k] == TempImage[i + 1][j][k])
+                {
                     image[i][j][k] = 0;
                 }
             }
