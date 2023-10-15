@@ -524,7 +524,7 @@ void filter_blur(){
         }
     }
 }
- void filter_skew_vertical(){
+void filter_skew_vertical(){
     double  AngelOfSkewness ;
     cout<<"Please enter degree to skew up: \n";
     cin >> AngelOfSkewness ;
@@ -532,48 +532,37 @@ void filter_blur(){
     double move = tan( AngelOfSkewness) * 256 ,comp;
     double step = move / SIZE ;
     move  = floor(move),comp = move;
-    unsigned char SkewedImage[SIZE+(int)move][SIZE][3],shrink_image[SIZE][SIZE][3],copy[SIZE][SIZE][3];
+    unsigned char SkewedImage[SIZE+(int)move][SIZE][3],copy[SIZE][SIZE][3];
     for (int i = 0; i < SIZE+(int)move; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k){ SkewedImage[i][j][k] = 255; }
+            for (int k = 0; k < 3; ++k) { SkewedImage[i][j][k] = 255; }
         }
     }
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k){ shrink_image[i][j][k] = 255, copy[i][j][k] = 255; }
+            for (int k = 0; k < 3; ++k){ copy[i][j][k] = 255; }
         }
-    }
-    int Avreage= ceil((SIZE+comp)/SIZE);
-    for (int i = 0; i < (SIZE) / Avreage; i++) {
-        for (int j = 0; j < SIZE; j++) {
-            for (int m = 0; m < 3; ++m) {
-                int AvreagePixel = 0;
-                for (int k = 0; k < Avreage; ++k) {
-                    AvreagePixel += image[i * Avreage + k][j][m];
-                }
-                AvreagePixel /= Avreage;
-                shrink_image[i][j][m] = AvreagePixel;
-            }
-        }
-    }
-    int row = 255;
-    for (int i = SIZE/Avreage-1; i >= 0; --i) {
-        for (int j = 0; j < SIZE; ++j) {
-            for (int k = 0; k < 3; ++k){ copy[row][j][k] = shrink_image[i][j][k]; }
-        }
-        row--;
     }
     double scale = 0;
+    double end  = 0.0;
     for ( int i = SIZE-1 ; i >=0 ; i-- ){
         for ( int j = 0 ; j <SIZE ; j++ ){
-            for (int k = 0; k < 3; ++k){ SkewedImage[i - (int) scale][j][k] = copy[i][j][k]; }
+            for (int k = 0; k < 3; ++k){ SkewedImage[i - (int) scale + (int) comp + (int) end][j][k] = image[i][j][k]; }
             scale += step ;
         }
         scale = 0;
+        end+=step/2;
+    }
+    for ( int i = SIZE-1 ; i >=0 ; i--){
+        double k =0.0;
+        for ( int j = 0 ; j <SIZE ; j++ ){
+            for (int l = 0; l < 3; ++l){ copy[i][j][l] = SkewedImage[i - (int) k + (int) comp][j][l];}
+            k+=step/2;
+        }
     }
     for ( int i = 0 ; i < SIZE ; i++ ){
         for ( int j = 0 ; j < SIZE; j++ ){
-            for (int k = 0; k < 3; ++k){ image[i][j][k] = SkewedImage[i][j][k]; }
+            for (int k = 0; k < 3; ++k){ image[i][j][k] = copy[i][j][k]; }
         }
     }
 }
