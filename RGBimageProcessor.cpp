@@ -414,28 +414,37 @@ void filter_mirror(){
 }
 void filter_shuffle(){
     unsigned char shuffled_image[SIZE][SIZE][3];
-    int newRow,newColoumn,row,coloumn;
+    int newRow,newColumn,row,column;
     vector<int>order_of_shuffle(4);
     set<int>correctness;
     cout<<"New order of quarters ? ";
     for(int k=0;k<4;k++){
         cin>>order_of_shuffle[k];
         correctness.insert(order_of_shuffle[k]);
-    }if(correctness.size()==4){
+    }//check that there are diffrent four numbers else tell user to enter valid order
+    if(correctness.size()==4){
         for (int k = 0; k < 4; k++) {
-            newRow = k < 2 ? 0 : SIZE / 2;           //for the first & the second quarters start rows from 0 else start from 128
-            row = order_of_shuffle[k] < 3 ? 0 : SIZE / 2;            // for the first & the second quarters start rows from 0 else start from 128
+            //for the first & the second quarters start rows from 0 else start from 128
+            newRow = k < 2 ? 0 : SIZE / 2;
+            // for the first & the second quarters start rows from 0 else start from 128
+            row = order_of_shuffle[k] < 3 ? 0 : SIZE / 2;
             for (int i = row; i < row + SIZE / 2; i++,newRow++) {
-                coloumn = order_of_shuffle[k] % 2 == 1 ? 0 : SIZE / 2;         // for the first & the second quarters start coloumn from 0 else start from 128
-                newColoumn = k % 2 == 0 ? 0 : SIZE / 2;          //for the first & the second quarters start coloumn from 0 else start from 128
-                for (int j = coloumn; j < coloumn + SIZE / 2; j++,newColoumn++) {
-                    for (int l = 0; l < 3; ++l) { shuffled_image[newRow][newColoumn][l] = image[i][j][l]; }
+                // for the first & the second quarters start coloumn from 0 else start from 128
+                column = order_of_shuffle[k] % 2 == 1 ? 0 : SIZE / 2;
+                //for the first & the second quarters start coloumn from 0 else start from 128
+                newColumn = k % 2 == 0 ? 0 : SIZE / 2;
+                for (int j = column; j < column + SIZE / 2; j++,newColumn++) {
+                    for (int l = 0; l < 3; ++l) {
+                        shuffled_image[newRow][newColumn][l] = image[i][j][l]; }
                 }
+
             }
         }//replace the original image with the shuffled one;
-        for(int i = 0;i <SIZE;i++){
-            for(int j = 0;j < SIZE;j++ ){
-                for (int k = 0; k < 3; ++k){ image[i][j][k] = shuffled_image[i][j][k]; }
+        for(int i = 0;i < SIZE; i++){
+            for(int j = 0;j < SIZE;j ++ ){
+                for (int k = 0; k < 3; ++k){
+                    image[i][j][k] = shuffled_image[i][j][k];
+                }
             }
         }
     }else{
@@ -447,23 +456,28 @@ void filter_crop(){
     unsigned char whiteImage[SIZE][SIZE][3];
     for(auto & i : whiteImage){
         for(auto & j : i){
-            for(auto& k:j){ k = 255; }
+            for(auto& k : j){
+                k = 255;
+            }
         }
     }
-
     vector<int>v(4);
     cout<< "Please enter x y l w: ";
-    for(int  i = 0; i<4;i++){
+    for(int  i = 0; i<4 ; i++){
         cin>>v[i];
     }if(v.size()==4){
         //x-axis pos=v[0],y-axis pos=v[1],length of rect=v[2],width of rect=v[3].
-        for(int i=v[0];i<v[0]+v[2];i++){
-            for(int j=v[1];j<v[1]+v[3];j++){
-                for (int k = 0; k < 3; ++k){ whiteImage[i][j][k] = image[i][j][k]; }
+        for(int i= v[0]; i < v[0]+v[2]; i++){
+            for(int j =v [1]; j<v[1]+v[3]; j++){
+                for (int k = 0; k < 3; ++k){
+                    whiteImage[i][j][k] = image[i][j][k];
+                }
             }
-        }for(int i = 0 ;i<SIZE;i++){
-            for(int j=0;j<SIZE;j++){
-                for (int k = 0; k < 3; ++k){ image[i][j][k] = whiteImage[i][j][k]; }
+        }for(int i = 0; i < SIZE; i++){
+            for(int j = 0; j < SIZE; j++){
+                for (int k = 0; k < 3; ++k){
+                    image[i][j][k] = whiteImage[i][j][k];
+                }
             }
         }
 
@@ -478,7 +492,7 @@ void filter_blur(){
             for (int j = 1; j <= SIZE; j++) {
                 for (int m = 0; m < 3; ++m){
                     image[i][j][m] = (image[i + 1][j - 1][m] + image[i - 1][j + 1][m] + image[i + 1][j][m] + image[i][j + 1][m]
-                                   + image[i + 1][j + 1][m] + image[i - 1][j - 1][m] + image[i - 1][j][m] + image[i][j - 1][m]) / 8;
+                                      + image[i + 1][j + 1][m] + image[i - 1][j - 1][m] + image[i - 1][j][m] + image[i][j - 1][m]) / 8;
                 }
             }
         }
