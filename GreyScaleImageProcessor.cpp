@@ -190,7 +190,7 @@ void filter_crop(){
 }
 void filter_shuffle(){
     unsigned char shuffled_image[SIZE][SIZE];
-    int newRow,newColoumn,row,coloumn;
+    int newRow,newColumn,row,column;
     vector<int>order_of_shuffle(4);
     set<int>correctness;
     cout<<"New order of quarters ? ";
@@ -199,13 +199,17 @@ void filter_shuffle(){
         correctness.insert(order_of_shuffle[k]);
     }if(correctness.size()==4){
         for (int k = 0; k < 4; k++) {
-            newRow = k < 2 ? 0 : SIZE / 2;           //for the first & the second quarters start rows from 0 else start from 128
-            row = order_of_shuffle[k] < 3 ? 0 : SIZE / 2;            // for the first & the second quarters start rows from 0 else start from 128
+            //for the first & the second quarters start rows from 0 else start from 128
+            newRow = k < 2 ? 0 : SIZE / 2;       
+            // for the first & the second quarters start rows from 0 else start from 128 
+            row = order_of_shuffle[k] < 3 ? 0 : SIZE / 2;          
             for (int i = row; i < row + SIZE / 2; i++,newRow++) {
-                coloumn = order_of_shuffle[k] % 2 == 1 ? 0 : SIZE / 2;         // for the first & the second quarters start coloumn from 0 else start from 128
-                newColoumn = k % 2 == 0 ? 0 : SIZE / 2;          //for the first & the second quarters start coloumn from 0 else start from 128
-                for (int j = coloumn; j < coloumn + SIZE / 2; j++,newColoumn++) {
-                    shuffled_image[newRow][newColoumn] = image[i][j];
+                // for the first & the second quarters start column from 0 else start from 128
+                column = order_of_shuffle[k] % 2 == 1 ? 0 : SIZE / 2;
+                //for the first & the second quarters start column from 0 else start from 128
+                newColumn = k % 2 == 0 ? 0 : SIZE / 2;  
+                for (int j = column; j < column + SIZE / 2; j++,newColumn++) {
+                    shuffled_image[newRow][newColumn] = image[i][j];
                 }
             }
         }//replace the original image with the shuffled one;
@@ -234,11 +238,12 @@ void filter_enlarge(){
                     enlarged_image[(i*2)][(j*2)+1]   = image[i][j];
                     enlarged_image[(i*2)+1][(j*2)+1] = image[i][j];
                 }
-            }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            image[i][j] = enlarged_image[i][j];
-        }
-    }
+            }
+            for(int i = 0;i <SIZE;i++){
+                for(int j = 0;j < SIZE;j++ ){
+                    image[i][j] = enlarged_image[i][j];
+                }
+            }
             break;
         case '2':
             //put each pixel between( row 0 to row 127 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
@@ -249,11 +254,12 @@ void filter_enlarge(){
                     enlarged_image[(i*2)][(j*2)+1]   = image[i][j+128];
                     enlarged_image[(i*2)+1][(j*2)+1] = image[i][j+128];
                 }
-            }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            image[i][j] = enlarged_image[i][j];
-        }
-    }
+            }
+            for(int i = 0;i <SIZE;i++){
+                for(int j = 0;j < SIZE;j++ ){
+                     image[i][j] = enlarged_image[i][j];
+                }
+            }
             break;
         case '3':
             //put each pixel between( row 128 to row 255 && coloumn 0 to coloumn 127) in 4 pixel in shape of square 2x2
@@ -264,11 +270,12 @@ void filter_enlarge(){
                     enlarged_image[(i*2)][(j*2)+1]   = image[i+128][j];
                     enlarged_image[(i*2)+1][(j*2)+1] = image[i+128][j];
                 }
-            }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            image[i][j] = enlarged_image[i][j];
-        }
-    }
+            }
+            for(int i = 0;i <SIZE;i++){
+                for(int j = 0;j < SIZE;j++ ){
+                  image[i][j] = enlarged_image[i][j];
+                }
+            }
             break;
         case '4':
             //put each pixel between( row 128 to row 255 && coloumn 128 to coloumn 255) in 4 pixel in shape of square 2x2
@@ -279,11 +286,12 @@ void filter_enlarge(){
                     enlarged_image[(i*2)][(j*2)+1]   = image[i+128][j+128];
                     enlarged_image[(i*2)+1][(j*2)+1] = image[i+128][j+128];
                 }
-            }for(int i = 0;i <SIZE;i++){
-        for(int j = 0;j < SIZE;j++ ){
-            image[i][j] = enlarged_image[i][j];
-        }
-    }
+            }
+            for(int i = 0;i <SIZE;i++){
+                 for(int j = 0;j < SIZE;j++ ){
+                     image[i][j] = enlarged_image[i][j];
+                 }
+            }
             break;
         default:
             cout<<"Invalid Quarter, please choose a valid one\n";
