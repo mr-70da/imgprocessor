@@ -451,14 +451,15 @@ void filter_invert(){
             j = 255 - j;
         }
     }
-}void filter_skew_horizontal(){
+}
+void filter_skew_horizontal(){
     double AngelOfSkewness ;
     cout<<"Please enter degree to skew right: \n";
     cin >> AngelOfSkewness ;
-    AngelOfSkewness  = ( AngelOfSkewness  * 22 ) / ( 180 * 7 ) ;
-    double move = tan(AngelOfSkewness ) * 256 ,comp;
+    AngelOfSkewness  = (AngelOfSkewness  * 22 ) / ( 180 * 7 ) ;
+    double move = tan(AngelOfSkewness ) * 256;
     double step = move / SIZE ;
-    move  = floor(move),comp = move;
+    move  = floor(move);
     unsigned char SkewedImage[SIZE][SIZE+(int)move],shrink_image[SIZE][SIZE];
     for (int i = 0; i < SIZE; ++i) {
         for (int j = 0; j < SIZE+(int)move; ++j) {
@@ -478,7 +479,7 @@ void filter_invert(){
     }
     double end  = 0.0;
     for (int i = 0; i < SIZE; i++) {
-        double k =0.0;
+        double k = 0.0;
         for (int j = 0; j < SIZE-(int)end; j++) {
             shrink_image[i][j] = SkewedImage[i][j+(int)k];
             k+=step;
@@ -494,8 +495,8 @@ void filter_invert(){
     double  AngelOfSkewness ;
     cout<<"Please enter degree to skew up: \n";
     cin >> AngelOfSkewness ;
-    AngelOfSkewness = (  AngelOfSkewness * 22 ) / ( 180 * 7 ) ;
-    double move = tan( AngelOfSkewness) * 256 ,comp;
+    AngelOfSkewness = (AngelOfSkewness * 22 ) / ( 180 * 7 ) ;
+    double move = tan(AngelOfSkewness) * 256 ,comp;
     double step = move / SIZE ;
     move  = floor(move),comp = move;
     unsigned char SkewedImage[SIZE+(int)move][SIZE],shrink_image[SIZE][SIZE],copy[SIZE][SIZE];
@@ -509,7 +510,7 @@ void filter_invert(){
             shrink_image[i][j] =255,copy[i][j] = 255;
         }
     }
-    double scale = 0;
+    double scale = 0.0;
     double end  = 0.0;
     for ( int i = SIZE-1 ; i >=0 ; i-- ){
         for ( int j = 0 ; j <SIZE ; j++ ){
