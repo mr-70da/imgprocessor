@@ -2,7 +2,7 @@
 // Author2 and ID and Group: Hassan Sherif Elkersh ID:20220112 Email:1243hassan@gmail.com     Group:S6.
 // FCAI – OOP Programming – 2023 - Assignment 1
 // Program Name:			GreyScaleImageProcessor.cpp
-// Last Modification Date:	15/10/2023
+// Last Modification Date:	16/10/2023
 // Teaching Assistant:		xxxxx xxxxx
 // Purpose: Adding filters to greyscale BMP Images.
 
