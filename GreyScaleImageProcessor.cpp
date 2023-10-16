@@ -73,14 +73,14 @@ void filter_shrink(){
     if(shrink_scale=="1/2"){
         for (int i = 0; i < SIZE/2 - 1; i++) {
             for (int j = 0; j < SIZE/2 - 1; j++) {
-                int avg = 0;
+                int pixelsAvreage = 0;
                 for (int k = 0; k < 2; ++k) {
                     for (int l = 0; l < 2; ++l) {
-                        avg+=image[i*2+k][j*2+l];
+                        pixelsAvreage+=image[i*2+k][j*2+l];
                     }
                 }
-                avg/=4;
-                shrink_image[i][j] = avg;
+                pixelsAvreage/=4;
+                shrink_image[i][j] = pixelsAvreage;
             }
         }
     }
